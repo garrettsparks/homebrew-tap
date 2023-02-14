@@ -22,6 +22,8 @@ class NodeAT18 < Formula
 
   keg_only :versioned_formula
 
+  option "with-full-icu", "This option makes the resulting binary link against ICU statically and include a full set of ICU data."
+
   # https://nodejs.org/en/about/releases/
   # disable! date: "2025-04-30", because: :unsupported
   deprecate! date: "2023-10-18", because: :unsupported
@@ -59,7 +61,7 @@ class NodeAT18 < Formula
 
     args = %W[
       --prefix=#{prefix}
-      --with-intl=system-icu
+      --with-intl=#{build.with?("full-icu") ? "full-icu" : "system-icu"}
       --shared-libuv
       --shared-nghttp2
       --shared-openssl
